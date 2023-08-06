@@ -30,15 +30,29 @@ struct ContentView: View {
                     Image(systemName: "4.circle")
                     Text("Restricted Date Picker")
                 }
+            
+            PickerDemoView()
+                .tabItem{
+                    Image(systemName: "5.circle")
+                    Text("Options")
+                }
         }
+        
+       
+        
+       
         .padding()
     }
+    
+   
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
+    
+    
 }
 
 
