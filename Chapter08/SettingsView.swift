@@ -9,9 +9,13 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    var selectedMode: String = "Free Mode"
-    @State  var settingsState = SettingsViewState()
+   
+    struct SettingsViewState {
+        var selectedMode: String = "Free Mode"
+    }
     
+    
+    @State var settingsState = SettingsViewState()
     var body: some View {
         
         Picker("App Mode", selection: $settingsState.selectedMode) {

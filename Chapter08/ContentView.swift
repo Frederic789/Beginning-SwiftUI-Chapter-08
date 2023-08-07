@@ -36,6 +36,13 @@ struct ContentView: View {
                     Image(systemName: "5.circle")
                     Text("Options")
                 }
+            
+            SettingsView()
+                .tabItem{
+                    Image(systemName: "6.circle")
+                    Text("Settings")
+                    
+                }
         }
         
        
