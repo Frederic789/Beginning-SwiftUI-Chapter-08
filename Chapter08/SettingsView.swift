@@ -1,4 +1,4 @@
-//
+// Modified SettingsView
 //  SettingsView.swift
 //  Chapter08
 //
