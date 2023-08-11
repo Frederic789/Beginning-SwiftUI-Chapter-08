@@ -1,68 +1,74 @@
-//
-//  PickerDemoView.swift
-//  Chapter08
-//
-//  Created by Student Account on 8/5/23.
-//
-
 import SwiftUI
+// Chapter9 Modified 
+@available(iOS 15.0, *) // For Slider's min & max labels
 
-struct PickerDemoView: View {
-    @State private var selectedOption = "Sandwich"
-       @State private var selectedColor = Color.red
-       @State private var selectedDate = Date()
-
-       var lunchOptions = ["Sandwich", "Salad", "Candy", "Pizza"]
+struct Exercise: View {
+    @State var myToggle = true
+    @State var sliderValue = 20.0
+    @State private var backgroundColor = Color.orange
+    @State private var imageSize = CGSize(width: 200, height: 300)
 
     var body: some View {
+        
         VStack {
-            Picker("What would you like for lunch?", selection: $selectedOption) {
-                ForEach(lunchOptions, id: \.self) { option in
-                    Text(option)
-                }
+            
+            ZStack {
+                
+                Rectangle()
+                    .fill(backgroundColor)
+                    .frame(width: 300, height: 250)
+                Image("the mountain")
+                    .resizable()
+                    .frame(width: (sliderValue * 5), height: (sliderValue * 5))
             }
-            .pickerStyle(MenuPickerStyle())
+           
+            //.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2)
+            .onChange(of: sliderValue) { newValue in
+                imageSize = CGSize(width: newValue * 8, height: newValue * 8)
+                
+            }
+            
+            VStack {
+                Toggle("Toggle", isOn: $myToggle)
+                    .padding()
+
+                Stepper("Stepper", value: $sliderValue, in: 1...200)
+                    .padding()
+
+                Text("Adjust the size of the image with the slider")
+                    .padding(.bottom)
+                
+                Slider(value: $sliderValue, in: 1...200, step: 1)
+                    .padding()
+
+                ColorPicker("Change Background Color", selection: $backgroundColor)
+                    .padding()
+
+                Slider(value: $sliderValue, in: 1...200, step: 1, minimumValueLabel: Text("1"), maximumValueLabel: Text("200")) {
+                    Text("Image Size")
+                }
+           
+            }
+          
             .padding()
-            .background(Color.gray.opacity(0.2))
-            .cornerRadius(10)
-            .padding(.horizontal)
             
-            ColorPicker("Pick a Color", selection: $selectedColor)
-                          .padding()
-                          .background(Color.gray.opacity(0.2))
-                          .cornerRadius(10)
-                          .padding(.horizontal)
-
-                      DatePicker("Pick a Date", selection: $selectedDate, in: ...Date(), displayedComponents: [.date])
-                          .padding()
-                          .background(Color.gray.opacity(0.2))
-                          .cornerRadius(10)
-                          .padding(.horizontal)
-            
-            Text("Selected Date: \(formattedDate(selectedDate))")
-                           .foregroundColor(.blue)
-                           .padding()
-            
-            
-
-                      Spacer()
+            Toggle("Flip Background Color", isOn: $myToggle)
+                .padding()
+                .onChange(of: myToggle) { newValue in
+                    backgroundColor = newValue ? .orange : .green
+                }
+            Spacer()
         }
-        
-        
-        
-        
+        .padding()
        
     }
-    
-    private func formattedDate(_ date: Date) -> String {
-            let formatter = DateFormatter()
-            formatter.dateStyle = .medium
-            return formatter.string(from: date)
-        }
+  
 }
 
-struct PickerDemoView_Previews: PreviewProvider {
+@available(iOS 15.0, *)
+struct ExercisePreviews: PreviewProvider {
     static var previews: some View {
-        PickerDemoView()
+        Exercise()
     }
 }
+
